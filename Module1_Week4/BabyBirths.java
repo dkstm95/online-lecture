@@ -30,11 +30,11 @@ public class BabyBirths {
         int totalGirls = 0;
         for(CSVRecord rec : fr.getCSVParser(false)) {
             int numBorn = Integer.parseInt(rec.get(2));
-            totalBirths += numBorn;
+            totalBirths += 1;
             if (rec.get(1).equals("M")) {
-                totalBoys += numBorn;
+                totalBoys += 1;
             } else {
-                totalGirls += numBorn;
+                totalGirls += 1;
             }
         }
         System.out.println("total births = " + totalBirths);
@@ -43,7 +43,7 @@ public class BabyBirths {
     }
     
     public void testTotalBirths() {
-        FileResource fr = new FileResource("us_babynames/us_babynames_by_year/yob1900.csv");
+        FileResource fr = new FileResource("us_babynames/us_babynames_by_year/yob1905.csv");
         totalBirths(fr);
     }
     
