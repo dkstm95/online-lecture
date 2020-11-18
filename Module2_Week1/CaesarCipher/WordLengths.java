@@ -16,7 +16,7 @@ public class WordLengths {
             if (!Character.isLetter(word.charAt(0))) {
                 word_len -= 1;
             }
-            if (!Character.isLetter(word.charAt(word_len-1))) {
+            if (!Character.isLetter(word.charAt(word.length()-1))) {
                 word_len -= 1;
             }
             if (0 < word_len && word_len < counts.length) {

@@ -9,12 +9,19 @@
 import edu.duke.*;
 
 public class CaesarCipher {
+    
+    private int mainKey;
+    private String alphabet;
+    private String shiftedAlphabet;
+    
+    public CaesarCipher(int key) {
+        mainKey = key;
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
+    }
 
-    public String encrypt(String input, int key) {
+    public String encrypt(String input) {
         StringBuilder encrypted = new StringBuilder(input);
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
-
         for (int i = 0; i < encrypted.length(); i++) {
             char currChar = encrypted.charAt(i);
             char newChar;
@@ -37,13 +44,9 @@ public class CaesarCipher {
         return encrypted.toString();
     }
     
-    public void testCaesar() {
-        int key = 15;
-        //FileResource fr = new FileResource();
-        //String message = fr.asString();
-        String message = "At noon be in the conference room with your hat on for a surprise party. YELL LOUD!";
-        String encrypted = encrypt(message, key);
-        System.out.println("key is " + key + "\n" + encrypted);
+    public String decrypt(String input) {
+        CaesarCipher cc = new CaesarCipher(26 - mainKey);
+        return cc.encrypt(input);
     }
     
     public String encryptTwoKeys(String input, int key1, int key2) {
@@ -89,13 +92,5 @@ public class CaesarCipher {
             }
         }
         return encrypted.toString();
-    }
-    
-    public void testEncryptTwoKeys() {
-        int key1 = 8;
-        int key2 = 21;
-        String message = "At noon be in the conference room with your hat on for a surprise party. YELL LOUD!";
-        String encrypted = encryptTwoKeys(message, key1, key2);
-        System.out.println("key is " + key1 + " " + key2 + "\n" + encrypted);
     }
 }
