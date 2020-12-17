@@ -2,6 +2,8 @@ package module6;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -75,7 +77,7 @@ public class EarthquakeCityMap extends PApplet {
 		else {
 			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
 			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-		    //earthquakesURL = "2.5_week.atom";
+		    earthquakesURL = "2.5_week.atom";
 		}
 		MapUtils.createDefaultEventDispatcher(this, map);
 		
@@ -85,7 +87,7 @@ public class EarthquakeCityMap extends PApplet {
 		//earthquakesURL = "test2.atom";
 		
 		// Uncomment this line to take the quiz
-		//earthquakesURL = "quiz2.atom";
+		earthquakesURL = "quiz2.atom";
 		
 		
 		// (2) Reading in earthquake data and geometric properties
@@ -116,8 +118,10 @@ public class EarthquakeCityMap extends PApplet {
 	    }
 
 	    // could be used for debugging
-	    printQuakes();
+	    //printQuakes();
 	 		
+	    sortAndPrint(20);
+	    
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
 	    //           for their geometric properties
@@ -410,4 +414,29 @@ public class EarthquakeCityMap extends PApplet {
 		return false;
 	}
 
+	
+	private void sortAndPrint(int numToPrint) {
+//		Object[] quakes = quakeMarkers.toArray();
+//		
+//		Arrays.sort(quakes);
+//		
+//		int limit = numToPrint < quakes.length ? numToPrint : quakes.length;
+//		for (int i=0 ; i<limit; i++) {
+//			System.out.println(quakes[i]);
+//		}
+		List<EarthquakeMarker> quakes = new ArrayList<EarthquakeMarker>();
+		for(Marker marker : quakeMarkers) {
+			quakes.add((EarthquakeMarker) marker);
+		}
+		Collections.sort(quakes);
+		if(numToPrint > quakes.size()) {
+			for(int i = 0; i < quakes.size(); i++) {
+				System.out.println(quakes.get(i));
+			}
+		} else {
+			for(int i = 0; i < numToPrint; i++) {
+				System.out.println(quakes.get(i));
+			}
+		}
+	}
 }
