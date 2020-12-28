@@ -67,23 +67,22 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-		boolean isVowel = false;
+		boolean newSyllable = true;
 		int count = 0;
+		String vowels = "aeiouy";
+		char[] cArray = word.toCharArray();
 		
-		for (int idx = 0; idx < word.length(); idx++) {
-			char ch = word.charAt(idx);
-			if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'y'
-					|| ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U' || ch == 'Y') {
-				if ((ch == 'e' || ch == 'E') && idx == word.length() - 1 && count > 0) {
-					continue;
-				}
-				if (!isVowel) {
-					isVowel = true;
-					count++;
-				}
+		for (int idx = 0; idx < cArray.length; idx++) {
+			char ch = Character.toLowerCase(cArray[idx]);
+			if (idx == cArray.length - 1 && ch == 'e' && newSyllable && count > 0) {
+				count--;
 			}
-			else {
-				isVowel = false;
+			if (newSyllable && vowels.indexOf(ch) >= 0) {
+				newSyllable = false;
+				count++;
+			}
+			else if (vowels.indexOf(ch) < 0) {
+				newSyllable = true;
 			}
 		}
 		
@@ -128,6 +127,7 @@ public abstract class Document {
 		else {
 			System.out.println("FAILED.\n");
 		}
+		System.out.println(doc.getFleschScore());
 		return passed;
 	}
 	
@@ -152,7 +152,11 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-	    return text.length();
+		float syllFound = new BasicDocument(text).getNumSyllables();
+		float wordsFound = new BasicDocument(text).getNumWords();
+		float sentFound = new BasicDocument(text).getNumSentences();
+	    return (206.835 - 1.015 * (wordsFound / sentFound)
+	    		- 84.6 * (syllFound / wordsFound));
 	}
 	
 	
