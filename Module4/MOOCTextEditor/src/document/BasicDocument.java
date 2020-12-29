@@ -57,7 +57,7 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 2 support videos 
         // if you need help.
-        return getTokens("[^.|!|?]+").size();
+        return getTokens("[^.!?]+").size();
 	}
 	
 	/**
