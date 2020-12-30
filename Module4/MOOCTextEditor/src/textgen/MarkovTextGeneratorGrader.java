@@ -16,6 +16,7 @@ public class MarkovTextGeneratorGrader {
             String feedback = "";
 
             feedback += "\n** Test 1: Generating text before training...";
+            
             try {
                 String s = gen.generateText(20);
                 feedback += "No error thrown. ";
@@ -90,6 +91,9 @@ public class MarkovTextGeneratorGrader {
             PrintWriter f = new PrintWriter("grader_output/module3.part2.out");
             f.println(feedback);
             f.close();
+            
+            System.out.println(feedback);
+            
             return;
         } catch (Exception e) {
             System.out.println("Error during runtime: " + e);
